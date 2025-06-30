@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa de Cidades</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <header>
+    <h1>Mapa Verde Brasil</h1>
+    <div class="top-buttons">
+      <button onclick="exportPDF()">📄 Exportar PDF</button>
+      <button onclick="openRoutes()">🗺️ Ver Rotas</button>
+      <button onclick="salvarImagemDoMapa()">🖼️ Salvar Mapa</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="map"></div>
+    <div class="side-panel">
+      <input type="text" id="cityInput" placeholder="Digite uma cidade" />
+      <button id="searchButton">Adicionar</button>
+      <ul id="cityList"></ul>
+      <div id="totalDistance">Distância total: 0 km</div>
+    </div>
+  </div>
+
+  <!-- Bibliotecas -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet-image/leaflet-image.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
