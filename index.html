@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mapa de Cidades</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8">
+  <title>Recomendação de Shampoo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Mapa Verde Brasil</h1>
-    <div class="top-buttons">
-      <button onclick="exportPDF()">📄 Exportar PDF</button>
-      <button onclick="openRoutes()">🗺️ Ver Rotas</button>
-      <button onclick="salvarImagemDoMapa()">🖼️ Salvar Mapa</button>
-    </div>
-  </header>
-
   <div class="container">
-    <div id="map"></div>
-    <div class="side-panel">
-      <input type="text" id="cityInput" placeholder="Digite uma cidade" />
-      <button id="searchButton">Adicionar</button>
-      <ul id="cityList"></ul>
-      <div id="totalDistance">Distância total: 0 km</div>
-    </div>
+    <h1>Recomendador de Shampoo</h1>
+
+    <form id="formShampoo">
+      <label for="tipoCabelo">Tipo de cabelo:</label>
+      <select id="tipoCabelo">
+        <option>Liso</option>
+        <!-- Adicione mais se houver na planilha -->
+      </select>
+
+      <label for="oleosidade">Oleosidade:</label>
+      <select id="oleosidade">
+        <option>Normal</option>
+        <option>Oleoso</option>
+        <!-- Adicione mais se houver -->
+      </select>
+
+      <label for="temQuimica">Tem química?</label>
+      <select id="temQuimica">
+        <option>Sim</option>
+        <option>Não</option>
+      </select>
+
+      <label for="pintado">Cabelos pintados?</label>
+      <select id="pintado">
+        <option>Sim</option>
+        <option>Não</option>
+      </select>
+
+      <button type="submit">Ver Shampoo</button>
+    </form>
+
+    <div id="resultado"></div>
   </div>
 
-  <!-- Bibliotecas -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://unpkg.com/leaflet-image/leaflet-image.js"></script>
-  <script src="script.js"></script>
+  <script>
+    const dados = [
+      { tipo: 'Liso', oleo: 'Normal', quimica: 'Sim', pintado: 'Sim', shampoo: 'Shampoo Cresce Cabelo' },
+      { tipo: 'Liso', oleo: 'Normal', quimica: 'Sim', pintado: 'Não', shampoo: 'Shampoo Ilumini Blond' },
+      { tipo: 'Liso', oleo: 'Normal', quimica: 'Não', pintado: 'Sim', shampoo: 'Shampoo Essencial Bio' },
+      { tipo: 'Liso', oleo: 'Normal', quimica: 'Não', pintado: 'Não', shampoo: 'Shampoo Tutano' },
+      { tipo: 'Liso', oleo: 'Oleoso', quimica: 'Sim', pintado: 'Sim', shampoo: 'Shampoo Cresce Cabelo' },
+      // Adicione os demais registros se quiser
+    ];
+
+    document.getElementById('formShampoo').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const tipo = document.getElementById('tipoCabelo').value;
+      const oleo = document.getElementById('oleosidade').value;
+      const quimica = document.getElementById('temQuimica').value;
+      const pintado = document.getElementById('pintado').value;
+
+      const resultado = dados.find(d =>
+        d.tipo === tipo &&
+        d.oleo === oleo &&
+        d.quimica === quimica &&
+        d.pintado === pintado
+      );
+
+      const divResultado = document.getElementById('resultado');
+      if (resultado) {
+        divResultado.innerHTML = `<p>✨ Shampoo recomendado: <strong>${resultado.shampoo}</strong></p>`;
+      } else {
+        divResultado.innerHTML = `<p style="color:red;">❌ Nenhuma recomendação encontrada.</p>`;
+      }
+    });
+  </script>
 </body>
 </html>
